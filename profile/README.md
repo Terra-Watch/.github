@@ -1,100 +1,184 @@
-# 🌊 PalavariRaksha
+<div align="center">
 
-**Engineering resilient maritime communication systems for small-scale fisheries.**
+# 🌊 Jalri
 
-PalavariRaksha is an open engineering project focused on building an **offline-first maritime safety platform** for fishing communities. The system enables vessels to exchange emergency alerts, location updates, and operational messages even when conventional communication infrastructure is unavailable.
+### Intelligent Maritime Safety & Resilient Communication Platform
 
-Instead of relying solely on cellular networks, PalavariRaksha combines embedded systems, LoRa mesh networking, distributed systems, and edge computing to create a fault-tolerant communication network suitable for coastal and offshore environments.
-
----
-
-## The Problem
-
-Small fishing vessels frequently operate beyond reliable cellular coverage. During emergencies such as:
-
-* Man Overboard (MOB)
-* Engine failure
-* Extreme weather
-* Medical emergencies
-* Loss of communication
-
-obtaining timely assistance becomes difficult.
-
-PalavariRaksha explores how low-power embedded systems and decentralized networking can improve situational awareness and emergency response in these environments.
+*Building resilient, offline-first technologies for maritime safety, emergency response, and communication in disconnected environments.*
 
 ---
 
-## Engineering Principles
+![Status](https://img.shields.io/badge/Status-Active%20Development-blue)
+![Platform](https://img.shields.io/badge/Platform-ESP32--S3%20%7C%20Android%20%7C%20Web-success)
+![Communication](https://img.shields.io/badge/Communication-LoRa-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-This organization follows an engineering-first workflow.
+</div>
 
-```text
-Research
-    ↓
-System Design
-    ↓
-Analysis & Validation
-    ↓
-Prototype Development
-    ↓
-Hardware Integration
-    ↓
-Field Testing
-    ↓
-Documentation
+---
+
+# Overview
+
+Jalri is an open engineering initiative focused on building resilient maritime communication and safety systems that continue operating when conventional infrastructure is unavailable.
+
+The platform combines embedded systems, long-range wireless communication, mobile applications, distributed networking, and intelligent routing to support reliable communication between vessels, rescue teams, and coastal infrastructure.
+
+Our objective is to create modular, scalable, and real-world deployable technologies for maritime environments.
+
+---
+
+# Vision
+
+Enable every vessel to communicate, share critical information, and request assistance—even without cellular networks or internet connectivity.
+
+---
+
+# Core Principles
+
+- Offline-first architecture
+- Long-range LoRa communication
+- Modular embedded systems
+- Distributed mesh networking
+- Delay-tolerant communication
+- Open engineering
+- Reliability over complexity
+
+---
+
+# Ecosystem
+
+```
+                   +----------------------+
+                   |    Web Dashboard     |
+                   +----------+-----------+
+                              |
+                        Gateway Services
+                              |
+                      Internet (Optional)
+                              |
+                ==========================
+                |        LoRa Mesh        |
+                ==========================
+                 /        |         \
+                /         |          \
+         BoatNode     BoatNode    BoatNode
+                \         |          /
+                 \        |         /
+                 Mobile Applications
 ```
 
-Every design decision should be supported by analysis, experiments, or implementation—not assumptions.
+---
+
+# Projects
+
+| Repository | Description |
+|------------|-------------|
+| BoatNode Firmware | Embedded firmware for ESP32-S3 based maritime nodes |
+| Mobile Application | Android application for communication and emergency operations |
+| Gateway | Bridge between LoRa mesh and cloud infrastructure |
+| Dashboard | Monitoring and management platform |
+| Documentation | System architecture, protocols and design documentation |
+| Simulations | Networking simulations, testing and evaluation |
 
 ---
 
-## Organization
+# Technology Stack
 
-| Repository     | Purpose                                                               |
-| -------------- | --------------------------------------------------------------------- |
-| `docs`         | System design documents, architecture, specifications and reports     |
-| `boatnode`     | Vessel communication node firmware                                    |
-| `wristnode`    | Crew wearable safety device                                           |
-| `shorestation` | Shore gateway and monitoring station                                  |
-| `simulations`  | Network analysis, TDMA scheduling, routing experiments and evaluation |
-| `hardware`     | Schematics, PCB files, BOM and mechanical designs                     |
-| `mobile-app`   | Offline crew interface                                                |
-| `backend`      | Cloud services and APIs                                               |
-| `dashboard`    | Shore monitoring dashboard                                            |
+## Embedded
 
----
+- ESP32-S3
+- LoRa
+- FreeRTOS
+- PlatformIO
+- Arduino Framework
 
-## Technical Areas
+## Mobile
 
-* Embedded Systems
-* LoRa Communication
-* Mesh Networking
-* Delay Tolerant Networking (DTN)
-* Routing Algorithms
-* Real-Time Systems
-* Wireless Communication
-* Edge Computing
-* Maritime Safety Systems
+- Android
+- Bluetooth Low Energy
+- Offline Storage
 
----
+## Backend
 
-## Repository Standards
+- MQTT
+- REST APIs
+- WebSocket
 
-Every repository should contain:
+## Web
 
-* Design documentation
-* Source code
-* Experiment results
-* Test reports
-* Issues and milestones
-* Version history
-
-Documentation evolves alongside implementation to ensure that design decisions remain traceable throughout the project lifecycle.
+- React
+- Next.js
+- TypeScript
 
 ---
 
-## About
+# Design Goals
 
-PalavariRaksha is developed as part of a B.Tech final-year engineering project at **Amrita Vishwa Vidyapeetham, Ettimadai**.
+- Long-range communication
+- Low power consumption
+- Modular architecture
+- Reliable packet delivery
+- Fault tolerance
+- Expandable networking
+- Field deployability
 
-This organization serves as the central workspace for research, development, experimentation, documentation, and hardware integration.
+---
+
+# Repository Structure
+
+```
+Jalri/
+│
+├── boatnode-firmware/
+├── mobile-app/
+├── gateway/
+├── dashboard/
+├── documentation/
+├── simulations/
+└── hardware/
+```
+
+---
+
+# Development Philosophy
+
+Every repository follows the same engineering principles:
+
+- Clean architecture
+- Modular components
+- Extensive documentation
+- Reproducible builds
+- Hardware-first validation
+- Incremental development
+
+---
+
+# Current Focus
+
+- Embedded communication stack
+- LoRa networking
+- Packet protocol development
+- Maritime safety workflows
+- Gateway integration
+
+---
+
+# Contributing
+
+We welcome engineers, researchers, developers, and contributors interested in resilient communication systems, embedded software, networking, and maritime technologies.
+
+Please read the documentation in each repository before contributing.
+
+---
+
+# License
+
+Unless otherwise specified, repositories are released under the MIT License.
+
+---
+
+<div align="center">
+
+**Engineering resilient communication for the maritime world.**
+
+</div>
