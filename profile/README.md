@@ -1,184 +1,54 @@
-<div align="center">
+# Jalri
 
-# 🌊 Jalri
+Maritime safety and operations platform.
 
-### Intelligent Maritime Safety & Resilient Communication Platform
+## Maritime Safety & Operations
 
-*Building resilient, offline-first technologies for maritime safety, emergency response, and communication in disconnected environments.*
+Jalri provides operational tooling for maritime vessel monitoring, safety event management, and communication tracking. The system connects vessel-side BoatNodes to a shore-side dashboard through LoRa gateways and a REST backend.
 
----
+## What Jalri Provides
 
-![Status](https://img.shields.io/badge/Status-Active%20Development-blue)
-![Platform](https://img.shields.io/badge/Platform-ESP32--S3%20%7C%20Android%20%7C%20Web-success)
-![Communication](https://img.shields.io/badge/Communication-LoRa-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
+- **Vessel status tracking** — register boats, monitor online/offline status through heartbeat communication
+- **LoRa-based communication** — custom binary protocol (v3) with acknowledgement, retry, and duplicate detection
+- **Gateway connectivity** — receive BoatNode packets over LoRa, forward events to the backend over HTTP
+- **Operational dashboard** — fleet overview, vessel details, map, alerts, telemetry, history, and system status
+- **Alert management** — SOS, system, and communication alerts with acknowledge/resolve workflow
+- **Event history** — chronological records of heartbeats, alerts, registrations, and gateway events
 
-</div>
+## System
 
----
-
-# Overview
-
-Jalri is an open engineering initiative focused on building resilient maritime communication and safety systems that continue operating when conventional infrastructure is unavailable.
-
-The platform combines embedded systems, long-range wireless communication, mobile applications, distributed networking, and intelligent routing to support reliable communication between vessels, rescue teams, and coastal infrastructure.
-
-Our objective is to create modular, scalable, and real-world deployable technologies for maritime environments.
-
----
-
-# Vision
-
-Enable every vessel to communicate, share critical information, and request assistance—even without cellular networks or internet connectivity.
-
----
-
-# Core Principles
-
-- Offline-first architecture
-- Long-range LoRa communication
-- Modular embedded systems
-- Distributed mesh networking
-- Delay-tolerant communication
-- Open engineering
-- Reliability over complexity
-
----
-
-# Ecosystem
-
-```
-                   +----------------------+
-                   |    Web Dashboard     |
-                   +----------+-----------+
-                              |
-                        Gateway Services
-                              |
-                      Internet (Optional)
-                              |
-                ==========================
-                |        LoRa Mesh        |
-                ==========================
-                 /        |         \
-                /         |          \
-         BoatNode     BoatNode    BoatNode
-                \         |          /
-                 \        |         /
-                 Mobile Applications
+```text
+BoatNode (ESP32-S3 + SX1278)
+       │
+       │ LoRa 433 MHz
+       ▼
+Gateway (ESP32-S3 + SX1278)
+       │
+       │ Wi-Fi / HTTP
+       ▼
+Backend (FastAPI + PostgreSQL)
+       │
+       │ REST API
+       ▼
+Dashboard (Next.js + React)
 ```
 
----
-
-# Projects
+## Project Components
 
 | Repository | Description |
-|------------|-------------|
-| BoatNode Firmware | Embedded firmware for ESP32-S3 based maritime nodes |
-| Mobile Application | Android application for communication and emergency operations |
-| Gateway | Bridge between LoRa mesh and cloud infrastructure |
-| Dashboard | Monitoring and management platform |
-| Documentation | System architecture, protocols and design documentation |
-| Simulations | Networking simulations, testing and evaluation |
+|---|---|
+| [jalari-node-firmware](https://github.com/RESQ-LoRa/jalari-node-firmware) | BoatNode embedded firmware (ESP32-S3, LoRa, protocol v3) |
+| [jalri-gateway-firmware](https://github.com/RESQ-LoRa/jalri-gateway-firmware) | Gateway embedded firmware (LoRa RX, ACK TX, HTTP ingestion) |
+| [website](https://github.com/RESQ-LoRa/website) | Frontend dashboard (Next.js) and backend API (FastAPI + PostgreSQL) |
+| [jalari-ai](https://github.com/RESQ-LoRa/jalari-ai) | AI/ML capabilities (scaffolded) |
+| [Documentation](https://github.com/RESQ-LoRa/Documentation) | Specifications, research papers, simulations |
 
----
+## Project Status
 
-# Technology Stack
+Core software foundations are implemented across firmware, backend, and frontend. The BoatNode and Gateway firmware implement a custom LoRa protocol with heartbeat, acknowledgement, and backend ingestion. The backend provides 17 REST API endpoints with PostgreSQL persistence. The dashboard provides 10 operational pages.
 
-## Embedded
+Physical hardware integration and end-to-end RF validation remain pending.
 
-- ESP32-S3
-- LoRa
-- FreeRTOS
-- PlatformIO
-- Arduino Framework
+## Documentation
 
-## Mobile
-
-- Android
-- Bluetooth Low Energy
-- Offline Storage
-
-## Backend
-
-- MQTT
-- REST APIs
-- WebSocket
-
-## Web
-
-- React
-- Next.js
-- TypeScript
-
----
-
-# Design Goals
-
-- Long-range communication
-- Low power consumption
-- Modular architecture
-- Reliable packet delivery
-- Fault tolerance
-- Expandable networking
-- Field deployability
-
----
-
-# Repository Structure
-
-```
-Jalri/
-│
-├── boatnode-firmware/
-├── mobile-app/
-├── gateway/
-├── dashboard/
-├── documentation/
-├── simulations/
-└── hardware/
-```
-
----
-
-# Development Philosophy
-
-Every repository follows the same engineering principles:
-
-- Clean architecture
-- Modular components
-- Extensive documentation
-- Reproducible builds
-- Hardware-first validation
-- Incremental development
-
----
-
-# Current Focus
-
-- Embedded communication stack
-- LoRa networking
-- Packet protocol development
-- Maritime safety workflows
-- Gateway integration
-
----
-
-# Contributing
-
-We welcome engineers, researchers, developers, and contributors interested in resilient communication systems, embedded software, networking, and maritime technologies.
-
-Please read the documentation in each repository before contributing.
-
----
-
-# License
-
-Unless otherwise specified, repositories are released under the MIT License.
-
----
-
-<div align="center">
-
-**Engineering resilient communication for the maritime world.**
-
-</div>
+Technical specifications, data contracts, and simulation analyses are available in the [Documentation](https://github.com/RESQ-LoRa/Documentation) repository.
