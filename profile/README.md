@@ -1,4 +1,4 @@
-# Jalri
+# Jalari
 
 Maritime safety and operations platform.
 
