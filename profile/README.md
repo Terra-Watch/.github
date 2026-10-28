@@ -87,35 +87,3 @@ MapLibre GL with a self-hosted PMTiles basemap, so no third-party map requests a
 
 Every data chip shows its age. A stale source turns grey and says so.
 
-## Built with
-
-| Layer | Stack |
-|---|---|
-| Frontend | React 19, Vite, TypeScript, Tailwind, MapLibre GL, PMTiles, TanStack Query, i18next |
-| Backend | FastAPI, SQLAlchemy, PostgreSQL (PostGIS optional), H3 |
-| Security | Short-lived access tokens with refresh rotation, CSRF protection, region-scoped authorisation, audit log |
-| Quality | Real-database tests, Playwright, axe-core accessibility checks |
-
-Accessible by design: keyboard use throughout, 44 px touch targets, reduced-motion support, light and dark themes. Installable on a phone.
-
-## Repositories
-
-| Repo | Description |
-|---|---|
-| [**dashboard**](https://github.com/terra-watch/dashboard) | The TerraWatch web app and API, with product, design and operations docs |
-
-## Get started
-
-```bash
-git clone https://github.com/terra-watch/dashboard.git
-cd dashboard
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-docker compose up -d
-```
-
-Run the backend (`uvicorn app.main:app --reload --port 8000`) and the frontend (`npm install && npm run dev`), then open <http://localhost:5173>. The repository README covers the full setup, including local accounts for each role.
-
-## Contributing
-
-Issues and pull requests are welcome. Please read the docs in the repository first and keep changes consistent with the approach above: people verify, software suggests.
