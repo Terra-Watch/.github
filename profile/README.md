@@ -17,20 +17,19 @@ English · हिन्दी · ଓଡ଼ିଆ
 
 ---
 
-## Our approach
+## How one fire moves through TerraWatch
 
-Software suggests and people decide. A model never verifies, assigns, dispatches or announces. Anything that becomes an action goes through a person into an ordinary check, and a check moves up a ladder that only people move.
+Software suggests and people decide. A model never verifies, assigns, dispatches or announces; every action passes through a person.
 
-| Rung | Meaning | Moved here by |
+| Step | Question | What TerraWatch gives |
 |---|---|---|
-| **Signal** | A satellite, station or report points to a place. No person has looked. | Automatic ingestion |
-| **Report** | A person says there is a fire. Not checked. | A citizen, or staff logging a call |
-| **Verified** | Staff checked the evidence and agree it is real. | Control Room |
-| **Responding** | An officer is on the way or on site. | Control Room, with the officer's acceptance |
-| **Contained** | Under control. | Control Room |
-| **Closed** | Finished and kept for the record, with a reason. | Control Room |
+| **1. Forecast** | Where is a fire likely tomorrow? | A level for each 55 km forest area, with the places to look |
+| **2. Satellite** | Is this detection a real fire? | Every detection sorted into a group, with the reason |
+| **3. Active fires** | Which fires matter now? | Fires built from detections, with size, growth and the nearest villages |
+| **4. Action** | What do we do? | A crew sent as a check, a notice written and approved, a village warned |
+| **5. Record** | Was it right? | What the ranger found, and the forecast set against what was detected |
 
-Each rung has its own shape, colour and word, so meaning never depends on colour alone.
+The same five steps run for stations: a station's smoke or sound statement is a prompt to look, and it enters step 4 as a check.
 
 ## Who uses it
 
@@ -61,7 +60,7 @@ A gated U-Net trained on 2,930 past fires ranks the forest cells within 8 km of 
 Fixed ESP32-S3 stations read fine particles, temperature and humidity, and a microphone and a sound classifier listen for chainsaws and blasts. Each reading is judged against that station's own normal and its neighbours, and the control room sees one sentence per station. Stations form a LoRa mesh that relays through each other. In simulation 95 to 98% of reports arrive after the busiest relay fails. A station never confirms a fire; only a ranger on the ground does.
 
 ### Field work and notices
-A check is verified, assigned and closed with a reason. Rangers accept, visit and record what they find; a retry after a lost connection is stored once. Official notices are written by one person and approved by a second.
+A check is assigned and closed with a reason. Rangers accept, visit and record what they find; a retry after a lost connection is stored once. Official notices are written by one person and approved by a second.
 
 ### Citizen reports and community
 Citizens may send a report with place, time and photos, and read notices and the community. Stored photos have their location data removed and faces in public copies are blurred.
