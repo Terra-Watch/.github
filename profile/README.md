@@ -5,11 +5,13 @@
   <img src="https://raw.githubusercontent.com/terra-watch/dashboard/main/frontend/public/brand/logo.svg" alt="TerraWatch" height="72">
 </picture>
 
-**Report, verify and respond to forest fires.**
+**Early warning and response for forest fires in India.**
 
-A wildfire operations platform for India's forests. It connects the people who see a fire, the people who decide what to do about it, and the people who go to the place.
+A web application and a network of lookout stations for forest rangers and control-room staff. It forecasts where a fire is likely tomorrow, sorts satellite detections into real fires and false ones, follows the fires that are burning, and puts the next action in front of a person.
 
 English · हिन्दी · ଓଡ଼ିଆ
+
+[Website](https://terra-watch-tawny.vercel.app) · [Dataset](https://zenodo.org/records/23647151)
 
 </div>
 
@@ -17,11 +19,11 @@ English · हिन्दी · ଓଡ଼ିଆ
 
 ## Our approach
 
-A fire claim moves up a **confidence ladder**, and only people move it up. Software can suggest. It never merges, verifies, closes or announces on its own.
+Software suggests and people decide. A model never verifies, assigns, dispatches or announces. Anything that becomes an action goes through a person into an ordinary check, and a check moves up a ladder that only people move.
 
 | Rung | Meaning | Moved here by |
 |---|---|---|
-| **Signal** | A satellite sensor sees heat. No person has looked. | Automatic ingestion |
+| **Signal** | A satellite, station or report points to a place. No person has looked. | Automatic ingestion |
 | **Report** | A person says there is a fire. Not checked. | A citizen, or staff logging a call |
 | **Verified** | Staff checked the evidence and agree it is real. | Control Room |
 | **Responding** | An officer is on the way or on site. | Control Room, with the officer's acceptance |
@@ -30,60 +32,67 @@ A fire claim moves up a **confidence ladder**, and only people move it up. Softw
 
 Each rung has its own shape, colour and word, so meaning never depends on colour alone.
 
-## Three roles, one app
+## Who uses it
 
 | Role | What they do |
 |---|---|
-| **Citizen** | Report smoke or fire in a few taps (place, time, up to four photos), follow the report until it closes, see verified fire areas nearby, read official notices, and join the community. |
-| **Range Officer** | Accept or decline assignments, navigate to the site, record what they find (fire confirmed, none found, could not tell), and work from an offline regional map. |
-| **Control Room** | Triage incidents with their evidence, verify, assign officers, close with a reason, publish approved notices, moderate the community, hand over between shifts, and run fire simulations. |
+| **Ranger** | See tomorrow's forecast for their area and the fires near them, accept an assignment, record what they find (confirmed, not confirmed, inconclusive), also offline. |
+| **Control Room** | Read the forecast board and map, work the satellite and active-fire boards, send a crew, verify and close checks, publish approved notices. |
+| **Admin** | Manage accounts, access by state and stations. |
+| **Citizen** | A secondary input: send a report (place, time, photos), read notices and the community. |
 
-## Capabilities
+Each person sees only the states or communities they are granted.
 
-### Citizen reporting
-Place, time and up to four photos. Reports are kept on the phone and sent when the connection returns, with retry keys so a poor connection never creates duplicates. Each report has a step-by-step timeline from received to closed, and the reason it was closed.
+## What it does
 
-### Community
-Three separate spaces for citizens: official **Notices**, **Discussion** (questions, local information, thanks, replies) and regional **Chat rooms** (slow mode, freeze, expiry). Phone numbers, links and coordinates in posts wait for a moderator, and every composer points to **Report**.
+### Fire forecast
+The chance that a satellite will detect a fire in each 55 km forest area tomorrow, shown as a level (None, Moderate 10%, High 30%, Extreme 60%), with the places to look, what is usual for the week, suggested actions and yesterday's record. A gradient-boosted model scores 7,148 forest cells in 17 states and the scores are calibrated. On the held-out year 2025 it reaches an average precision of 0.519 per cell and 0.795 per area, against 0.292 for climatology; areas rated Extreme had a detected fire on 81% of area-days.
 
-### Fire evidence check
-An AI model examines the photos attached to a citizen report and gives Control Room reviewers an advisory assessment. A person reviews the photos and decides. Once a report is verified, it appears to other citizens as a coarse, delayed hexagon on the public map.
+### Satellite detections
+Every VIIRS detection is kept and sorted into likely fire, unconfirmed, known heat source (mines, kilns, power plants) or outside forest, with the reason in words. A classifier of the chance that a burn scar follows within 1 km scores each one. Nothing is hidden; each group can be switched on.
 
-### Community alerts
-Verified citizen reports inform nearby citizens in the community. Alerts go out once the AI evidence check and a reviewer agree, so the community hears about real fires, not unchecked claims.
+### Active fires
+Detections within 1 km and 36 hours are one fire, with its size, growth, the side it grew toward and the nearest named villages. A board orders fires by who needs attention. A control-room user can send a crew (a check in the queue), warn villages, or mark a fire handled, out or not a forest fire.
 
-### Wildfire forecasting
-Live daily ignition-risk forecasts across all of India's forests, shown as **relative ranked bands** among forest cells: Very high (top 1%), High (top 5%), Moderate (top 15%) and Low. Raw model scores are never shown. Advisory forecast; confirm with field observations.
+### Past fires: the spread outlook
+A gated U-Net trained on 2,930 past fires ranks the forest cells within 8 km of a burning fire, in three bands, for the next one to two days. On the 2025 test fires its top band covers a median 75% of the cells that burned, against 50% for nearest-first. It is a ranking, not an arrival time. The page shows archived fires checked against what burned.
 
-### Fire simulation
-Fire-spread models calibrated on real Indian fire events. For any reported fire, Control Room draws how far it could spread under inputs the planner types: head-fire rate of spread, wind speed and direction, hours to show, and uncertainty on each.
+### Lookout stations
+Fixed ESP32-S3 stations read fine particles, temperature and humidity, and a microphone and a sound classifier listen for chainsaws and blasts. Each reading is judged against that station's own normal and its neighbours, and the control room sees one sentence per station. Stations form a LoRa mesh that relays through each other. In simulation 95 to 98% of reports arrive after the busiest relay fails. A station never confirms a fire; only a ranger on the ground does.
 
-- Anderson/Richards elliptical fire growth, with inner, typed and outer bands per hour
-- Straight-line reach table and a reality check against satellite signals
-- Exposure of places the planner adds
-- Output is a range under stated inputs, never a statement of what *will* burn
-- Saved to the incident timeline as a note
+### Field work and notices
+A check is verified, assigned and closed with a reason. Rangers accept, visit and record what they find; a retry after a lost connection is stored once. Official notices are written by one person and approved by a second.
 
-### Maps
-MapLibre GL with a self-hosted PMTiles basemap, so no third-party map requests are made. Each role sees only the layers it is allowed. A missing dot on a map is never evidence that there is no fire, and every public view says so.
+### Citizen reports and community
+Citizens may send a report with place, time and photos, and read notices and the community. Stored photos have their location data removed and faces in public copies are blurred.
+
+### Demo
+The demonstration uses archived days of 2025 replayed from the final model, shown with the fires that were actually detected, one state and one day at a time.
 
 ## Safety and privacy
 
-- The public map shows verified incidents only, snapped to H3 cells and shown after a delay, enforced on the server.
-- Citizens never see satellite signals, unchecked reports or other people's reports.
+- Access is limited by state and community on the server, and every state change is written to an audit log.
 - Official notices are written by one person and approved by a second.
-- Citizens can download or delete their data.
 - Emergency numbers, thresholds and retention periods come from configuration, never from built-in defaults.
 - Secrets are never printed or committed.
+- A missing dot on a map is never evidence that there is no fire, and the views say so.
+
+## Repositories
+
+| Repository | Content |
+|---|---|
+| [dashboard](https://github.com/Terra-Watch/dashboard) | The web application: backend, frontend, tests |
+| [wildfire-ignition-forecasting](https://github.com/Terra-Watch/wildfire-ignition-forecasting) | The next-day forecast: data build, models, calibration |
+| [acoustic-ml](https://github.com/Terra-Watch/acoustic-ml) | The sound classifier for the stations |
+| [node-firmware](https://github.com/Terra-Watch/node-firmware) | Station firmware: sensors, routing, packets |
+| [gateway-firmware](https://github.com/Terra-Watch/gateway-firmware) | Gateway firmware and the bridge to the server |
 
 ## Data sources
 
 | Source | Use |
 |---|---|
 | NASA FIRMS (VIIRS) | Satellite fire detections |
-| Copernicus ERA5 and weather sources | Wind and weather, shown with the age of the reading |
-| OpenStreetMap contributors, Protomaps | Basemap |
-| Citizen reports and field observations | Evidence and verification |
-
-Every data chip shows its age. A stale source turns grey and says so.
-
+| ERA5-Land, Open-Meteo, NOAA GFS | Weather and the weather forecast |
+| MODIS burned area, Sentinel-2 | What burned, for the spread outlook |
+| OpenStreetMap contributors | Basemap and named places |
+| Rangers' field observations | Evidence and verification |
